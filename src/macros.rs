@@ -3,7 +3,7 @@ macro_rules! web_component {
     ($name:ident) => {
         paste::item! {
             #[wasm_bindgen::prelude::wasm_bindgen]
-            pub fn [<components_web_ $name:lower _create>](attributes:NamedNodeMap) -> usize {
+            pub fn [<components_web_ $name:lower _create>](attributes: NamedNodeMap) -> usize {
                 let object = $name::create_component(attributes);
                 unsafe {
                     $crate::objects_register::OBJECTS_REGISTER.register_object(Box::new(object))
@@ -11,7 +11,15 @@ macro_rules! web_component {
             }
 
             #[wasm_bindgen::prelude::wasm_bindgen]
-            pub fn [<components_web_ $name:lower _get_data>](object:usize) -> String {
+            pub fn [<components_web_ $name:lower _update_data>](object: usize, data: String) {
+                unsafe {
+                    let object = $crate::objects_register::OBJECTS_REGISTER.object(object);
+                    object.update_data(data);
+                }
+            }
+
+            #[wasm_bindgen::prelude::wasm_bindgen]
+            pub fn [<components_web_ $name:lower _get_data>](object: usize) -> String {
                 unsafe {
                     let object = $crate::objects_register::OBJECTS_REGISTER.object(object);
                     object.get_data()

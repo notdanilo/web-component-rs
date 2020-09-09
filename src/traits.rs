@@ -16,4 +16,6 @@ pub trait WebComponent: erased_serde::Serialize {
             String::from_utf8_unchecked(vec)
         }
     }
+
+    fn update_data(&mut self, _data: String) {}
 }
