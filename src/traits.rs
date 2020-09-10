@@ -16,11 +16,10 @@ pub trait WebComponentBinding: erased_serde::Serialize {
     }
 }
 
-// Move
 pub trait WebComponent: WebComponentBinding {
     fn create_component(attributes:NamedNodeMap) -> Self where Self: Sized;
 
     fn on_loaded(&mut self,_shadow_root:ShadowRoot) {}
 
-    fn field_updated(&self, _name: &String) {}
+    fn field_updated(&mut self, _name: &String) {}
 }
