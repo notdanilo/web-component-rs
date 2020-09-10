@@ -11,10 +11,11 @@ macro_rules! web_component {
             }
 
             #[wasm_bindgen::prelude::wasm_bindgen]
-            pub fn [<components_web_ $name:lower _update_data>](object: usize, data: String) {
+            pub fn [<components_web_ $name:lower _update_field>](object: usize, name: String, value: String) {
                 unsafe {
                     let object = $crate::objects_register::OBJECTS_REGISTER.object(object);
-                    object.update_data(data);
+                    object.update_field(&name, &value);
+                    object.field_updated(&name);
                 }
             }
 
@@ -54,5 +55,16 @@ macro_rules! package {
     () => {
         #[wasm_bindgen::prelude::wasm_bindgen]
         pub fn web_component_target_wasm() {}
+    }
+}
+
+#[macro_export]
+macro_rules! update_field {
+    ($self:ident, $name:ident, $value:ident $(,$property:ident)*) => {
+        $(
+            if $name == stringify!($property) {
+                $self.$property = serde_json::from_str(&$value).unwrap();
+            }
+        )*
     }
 }

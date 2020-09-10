@@ -2,9 +2,11 @@
 pub use crate::web_component;
 pub use crate::package;
 pub use crate::template;
+pub use crate::update_field;
+pub use web_component_derive::WebComponent;
 
 // Traits re-exports.
-pub use crate::traits::WebComponent;
+pub use crate::traits::*;
 
 // Crates re-exports.
 pub use serde::{Serialize, Deserialize};

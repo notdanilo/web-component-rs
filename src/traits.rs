@@ -1,10 +1,8 @@
 use web_sys::NamedNodeMap;
 use web_sys::ShadowRoot;
 
-pub trait WebComponent: erased_serde::Serialize {
-    fn create_component(attributes:NamedNodeMap) -> Self where Self: Sized;
-
-    fn on_loaded(&mut self,_shadow_root:ShadowRoot) {}
+pub trait WebComponentBinding: erased_serde::Serialize {
+    fn update_field(&mut self, name: &str, value: &str);
 
     fn get_data(&self) -> String {
         let mut vec = Vec::with_capacity(128);
@@ -16,6 +14,13 @@ pub trait WebComponent: erased_serde::Serialize {
             String::from_utf8_unchecked(vec)
         }
     }
+}
 
-    fn update_data(&mut self, _data: String) {}
+// Move
+pub trait WebComponent: WebComponentBinding {
+    fn create_component(attributes:NamedNodeMap) -> Self where Self: Sized;
+
+    fn on_loaded(&mut self,_shadow_root:ShadowRoot) {}
+
+    fn field_updated(&self, _name: &String) {}
 }
