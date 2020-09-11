@@ -204,14 +204,25 @@ checksum = "1d649a3145108d7d3fbcde896a468d1bd636791823c9921135218ad89be08307"
 
 [[package]]
 name = "web-component"
-version = "0.1.1"
+version = "0.1.3"
 dependencies = [
  "erased-serde",
  "paste",
  "serde",
  "serde_json",
  "wasm-bindgen",
+ "web-component-derive",
  "web-sys",
+]
+
+[[package]]
+name = "web-component-derive"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "de09e220f74299f72c92de6b3389fa2540b3329b85be853cf7ec2a007e3a0f9b"
+dependencies = [
+ "quote",
+ "syn",
 ]
 
 [[package]]
