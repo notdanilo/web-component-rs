@@ -1,0 +1,3 @@
+[submodule "crates/web-component-derive"]
+	path = crates/web-component-derive
+	url = git@github.com:notdanilo/web-component-derive
